@@ -1,6 +1,6 @@
 # WNS_Management
 
-The `2019-published` folder contains all of the source code written for and used in the "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome" scientific research paper by J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, and JC Blackwood.
+This repository contains source code for simulating the mathematical model described in the paper "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome" by J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, and JC Blackwood. The paper is currently under review, and a link to it will be added upon publication.
 
 Run the following scripts to recreate the plots included in the paper:
 
