@@ -1,4 +1,4 @@
-# WNS_Management
+# wns-management
 
 This repository contains source code for simulating the mathematical model described in the paper "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome" by J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, and JC Blackwood. The paper is currently under review, and a link to it will be added upon publication.
 
