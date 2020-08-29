@@ -1,4 +1,4 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
 
 % This is a modified version of darkb2r by cunjie zhang, which is available from
 % https://www.mathworks.com/matlabcentral/fileexchange/36210-darkb2r-cmin_input-cmax_input.

@@ -1,4 +1,4 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
 
 % Our multi-subpopulation code follows an object-oriented structure. This is the base class
 % file, which provides the "blueprint" for a single hibernaculum/subpopulation. It uses the

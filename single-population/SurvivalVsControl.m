@@ -1,4 +1,4 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Spatially Dynamic Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
 
 % This program creates five panels, each of which displays a line plot of population survival percentage
 % against control intensity for the three disease transmission cases in the single-population setting.
