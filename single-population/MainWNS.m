@@ -10,7 +10,7 @@
 
 % Dependencies: none
 
-% NOTE: The order of controls in controlIntensities here differs from that in the paper and in two-subpopulation program files:
+% NOTE: The order of controls in controlIntensities here differs from that in the paper and in two-population program files:
 % first column is vaccination intensity
 % second column is fungicide
 % third column is soil bacteria
@@ -61,7 +61,7 @@ params.omega = 50;
 params.pdMortality = controlIntensities(4);
 params.lambda = 0;
 
-% the value of epsilon does not depend on time, so I compute it here
+% the value of epsilon does not depend on time, so we compute it here
 % note that in the paper we write out this function every time it's used instead of calling it epsilon
 epsilon = 1 / (params.s * params.delta + 1);
 
@@ -76,7 +76,7 @@ for i = 1:years
     
     % ode45 returns the initial condition as the first row of the output matrix (and the corresponding first entry of the time vector);
     % thus, appending the output matrix as-is to the end of the initial conditions (as will be done at the end of the year) will result
-    % in the initial conditions appearing twice, so I delete the first entry of the output matrix and time vector;
+    % in the initial conditions appearing twice, so we delete the first entry of the output matrix and time vector;
     % this is also why there must be overlap in time when calling ode45: for example, if swarming ends on day 61 then the first day of
     % hibernation (where nothing will happen and the initial condition will be returned) must be 61 as well
     populationMatrixSwarming(1,:) = [];
