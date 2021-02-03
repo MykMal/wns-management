@@ -1,14 +1,14 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
-% This program creates two color grids with control strategy in subpopulation A
-% on the y-axis and control strategy in subpopulation B on the x-axis. Each
-% cell is colored to represent the percent change in combined population survival between
+% This program creates two color grids with control strategy in population A
+% on the y-axis and control strategy in population B on the x-axis. Each
+% cell is colored to represent the percent change in overall metapopulation survival between
 % no dispersal and the set low or high dispersal value. First, the program creates a
 % HibernaculumGrid object, which in turn creates a 1x2 grid of Hibernaculum objects.
 % Then, the program runs simulations on the grid thrice (for no, low, and high dispersal)
 % for each combination of control strategies, and finally finds the percent differences in survival.
 
-% Instructions: Set the disease transmission case, low and high dispersal proportions, intervention intensity,
+% Instructions: Set the transmission case, low and high dispersal proportions, intervention intensity,
 % initial conditions, and number of simulation years below. No changes need to be made to other files.
 
 % Dependencies: Hibernaculum.m, HibernaculumGrid.m, darkb2r.m, and
@@ -23,7 +23,7 @@ clear all
 % not show it because it will be saved automatically
 f = figure('visible','off');
 
-% set the disease case
+% set the transmission case
 % 1 denotes primarily environment-to-bat transmission
 % 2 denotes equal contributions to disease transmission
 % 3 denotes primarily bat-to-bat transmission
@@ -38,28 +38,28 @@ dispersalHigh = 0.08;
 % set the intervention intensity
 controlIntensity = 0.8;
 
-% set the initial condition for subpopulation A
+% set the initial condition for population A
 IC1 = [14999 1 0 0 0];
 
-% set the initial condition for subpopulation B
+% set the initial condition for population B
 IC2 = [14999 1 0 0 0];
 
 % set the number of years to simulate the model for
 years = 10;
 
-% load the 25% survival matrix to later pull out phi, beta pairs for each of the three disease cases
+% load the 25% survival matrix to later pull out phi, beta pairs for each of the three transmission cases
 load('ContourLine.mat');
 
 if diseaseCase == 1
-    % disease case 1 - primarily environment-to-bat transmission
+    % transmission case 1 - primarily environment-to-bat transmission
     beta = contourLine(1, 168);
     phi = contourLine(2,168);
 elseif diseaseCase == 2
-    % disease case 2 - equal contributions to disease transmission
+    % transmission case 2 - equal contributions to disease transmission
     beta = contourLine(1,117);
     phi = contourLine(2,117);
 else
-    % disease case 3 - primarily bat-to-bat transmission
+    % transmission case 3 - primarily bat-to-bat transmission
     beta = contourLine(1,57);
     phi = contourLine(2,57);
 end
@@ -76,14 +76,14 @@ grid = HibernaculumGrid(m,n,beta,phi);
 gridMatrix1 = zeros(6,6);
 gridMatrix2 = zeros(6,6);
 
-% finalValues will store the final population sizes given no, low, and high
+% finalValues will store the final metapopulation sizes given no, low, and high
 % dispersal; it gets overwritten during each simulation run
 finalValues = zeros(1,3);
 
 % store the three dispersal values we will test
 dispersalPercentages = [0 dispersalLow dispersalHigh];
 
-% loop through control strategies in subpopulation A
+% loop through control strategies in population A
 for i = 1:6
     
     % reset the controls vector
@@ -95,10 +95,10 @@ for i = 1:6
         control1(i-1) = controlIntensity;
     end
     
-    % update the parameter values in subpopulation A given the current control
+    % update the parameter values in population A given the current control
     grid(1,1).value.SetControl(control1)
     
-    % loop through control strategies in subpopulation B
+    % loop through control strategies in population B
     for j = 1:6
         
         % reset the controls vector
@@ -110,10 +110,10 @@ for i = 1:6
             control2(j-1) = controlIntensity;
         end
         
-        % update the parameter values in subpopulation B given the current control
+        % update the parameter values in population B given the current control
         grid(1,2).value.SetControl(control2)
         
-        % first iteration finds the final population size given no
+        % first iteration finds the final metapopulation size given no
         % dispersal, second iteration does the same for low dispersal, and
         % third for high dispersal
         for k = 1:3
@@ -122,7 +122,7 @@ for i = 1:6
             grid(1,1).value.Reset(IC1)
             grid(1,2).value.Reset(IC2)
             
-            % reset the migration matrix with the current dispersal value
+            % reset the dispersal matrix with the current dispersal value
             grid.ResetMigration(dispersalPercentages(k))
             
             % simulate the model for the specified number of years
@@ -133,11 +133,11 @@ for i = 1:6
                 yearDays = (year - 1) * 365;
                 
                 % call the FullYear method in HibernaculumGrid, which includes all
-                % dynamics and migration for a single year
+                % dynamics and interpopulation movement for a single year
                 grid.FullYear(yearDays);
             end
             
-            % find the total final population given the current dispersal value
+            % find the total final metapopulation size given the current dispersal value
             finalValues(k) = grid(1,1).value.FinalPopulation + grid(1,2).value.FinalPopulation;
             
         end
@@ -180,8 +180,8 @@ yticks([0 1 2 3 4 5])
 yticklabels({'N','F','M','B','UV','V'})
 
 % label the axes
-xlabel('Control Strategy in Subpopulation B')
-ylabel('Control Strategy in Subpopulation A')
+xlabel('Control Strategy in Population B')
+ylabel('Control Strategy in Population A')
 title(dispersalLow*100 + "% Dispersal")
 
 % set subplot font size and axes line width
@@ -221,8 +221,8 @@ yticks([0 1 2 3 4 5])
 yticklabels({'N','F','M','B','UV','V'})
 
 % label the axes
-xlabel('Control Strategy in Subpopulation B')
-ylabel('Control Strategy in Subpopulation A')
+xlabel('Control Strategy in Population B')
+ylabel('Control Strategy in Population A')
 title(dispersalHigh*100 + "% Dispersal")
 
 % set subplot font size and axes line width

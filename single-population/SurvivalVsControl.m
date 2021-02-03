@@ -1,7 +1,7 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
 % This program creates five panels, each of which displays a line plot of population survival percentage
-% against control intensity for the three disease transmission cases in the single-population setting.
+% against control intensity for the three transmission cases in the single-population setting.
 
 % Instructions: Set the desired number of years in MainWNS.m before running.
 % Nothing needs to be modified here.
@@ -17,14 +17,14 @@ clear all
 % not show it because it will be saved automatically
 figure('visible','off')
 
-% load the 25% survival matrix to later pull out phi, beta pairs for each of the three disease cases
+% load the 25% survival matrix to later pull out phi, beta pairs for each of the three transmission cases
 load('ContourLine.mat')
 
 % the numbers are positions in ContourLine that represent
 % 90%, 50%, and 10% of the phi range, respectively
 contourIndices = [168 117 57];
 
-% a cell array storing the line styles for each disease transmission case
+% a cell array storing the line styles for each transmission case
 lineStyles = {':','--','-'};
 
 % the vector of control intensities
@@ -33,7 +33,7 @@ controlSpace = linspace(0,1,100);
 % step through each of the five controls, according to the old numbering (see note in MainWNS.m)
 for control = 1 : 5
 	
-	% step through the three disease transmission cases
+	% step through the three transmission cases
 	for i = 1 : 3
         
         count = 1; % keeps track of the current position in controlSpace
@@ -79,8 +79,7 @@ for control = 1 : 5
 				title('Microclimate')
         end
         
-        % plot the results, using a line style corresponding to the current
-        % disease transmission case
+        % plot the results, using a line style corresponding to the current transmission case
 		plot(controlSpace, percentSurvivalVector, lineStyles{i}, 'LineWidth', 3)
 		hold on
 	end

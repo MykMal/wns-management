@@ -1,15 +1,15 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
 % This program creates four panels, each of which contains a line plot
 % displaying percent survival against percent dispersal for all five
 % control strategies. Each subplot uses a different intervention intensity,
 % but otherwise they are all identical. Here control strategies are only
-% implemented in subpopulation A. First, the program creates a
+% implemented in population A. First, the program creates a
 % HibernaculumGrid object, which in turn creates a 1x2 grid of Hibernaculum
 % objects. Then, the program runs simulations on the grid for every control
 % strategy, for every dispersal value. This process is repeated for each subplot.
 
-% Instructions: Set the disease transmission case, intervention intensities, initial conditions,
+% Instructions: Set the transmission case, intervention intensities, initial conditions,
 % and number of simulation years below. No changes need to be made to other files.
 
 % Dependencies: Hibernaculum.m, HibernaculumGrid.m, and ContourLine.mat
@@ -24,7 +24,7 @@ clear all
 % not show it because it will be saved automatically
 f = figure('visible','off');
 
-% set the disease case
+% set the transmission case
 % 1 denotes primarily environment-to-bat transmission
 % 2 denotes equal contributions to disease transmission
 % 3 denotes primarily bat-to-bat transmission
@@ -33,28 +33,28 @@ diseaseCase = 2;
 % set the four intervention intensities to use
 controlIntensities = [0.3 0.5 0.7 0.9];
 
-% set the initial condition for subpopulation A
+% set the initial condition for population A
 IC1 = [14999 1 0 0 0];
 
-% set the initial condition for subpopulation B
+% set the initial condition for population B
 IC2 = [14999 1 0 0 0];
 
 % set the number of years to simulate the model for
 years = 10;
 
-% load the 25% survival matrix to later pull out phi, beta pairs for each of the three disease cases
+% load the 25% survival matrix to later pull out phi, beta pairs for each of the three transmission cases
 load('ContourLine.mat');
 
 if diseaseCase == 1
-    % disease case 1 - primarily environment-to-bat transmission
+    % transmission case 1 - primarily environment-to-bat transmission
     beta = contourLine(1, 168);
     phi = contourLine(2,168);
 elseif diseaseCase == 2
-    % disease case 2 - equal contributions to disease transmission
+    % transmission case 2 - equal contributions to disease transmission
     beta = contourLine(1,117);
     phi = contourLine(2,117);
 else
-    % disease case 3 - primarily bat-to-bat transmission
+    % transmission case 3 - primarily bat-to-bat transmission
     beta = contourLine(1,57);
     phi = contourLine(2,57);
 end
@@ -68,18 +68,17 @@ grid = HibernaculumGrid(m,n,beta,phi);
 
 % set up the vectors for sweeping over a range of dispersal values
 dispersalPercentages = 0 : 0.001 : 0.1;
-% dispersalIndices is needed for proper placement of population values into survivalPercentages
+% dispersalIndices is needed for proper placement of metapopulation values into survivalPercentages
 dispersalIndices = 1 : length(dispersalPercentages);
 % dispersalIntegers is used for the x-axis on plots
 dispersalIntegers = dispersalPercentages.*100;
 % save the number of data points in each line plot, which will be used for plotting
 plotLength = length(dispersalPercentages);
 
-% a cell array storing the line styles for each disease transmission case
+% a cell array storing the line styles for each transmission case
 lineStyles = {':','--','-','-.','-o'};
 
-% survivalPercentages will store the combined final population values for
-% all simulations
+% survivalPercentages will store the final metapopulation values for all simulations
 survivalPercentages = zeros(4, length(dispersalPercentages), 5);
 
 % loop through the four intervention intensities
@@ -94,7 +93,7 @@ for iti = 1 : 4
         % reset the controls vector
         control1 = zeros(1,5);
         
-        % update the parameter values in subpopulation A given the current
+        % update the parameter values in population A given the current
         % control at the current intervention intensity
         control1(i) = controlIntensity;
         grid(1,1).value.SetControl(control1);
@@ -106,7 +105,7 @@ for iti = 1 : 4
             grid(1,1).value.Reset(IC1)
             grid(1,2).value.Reset(IC2)
             
-            % reset the migration matrix with the current dispersal value
+            % reset the dispersal matrix with the current dispersal value
             grid.ResetMigration(dispersalPercentages(j))
             
             % simulate the model for the specified number of years
@@ -116,11 +115,11 @@ for iti = 1 : 4
                 yearDays = (year - 1) * 365;
                 
                 % call the FullYear method in HibernaculumGrid, which includes all
-                % dynamics and migration for a single year
+                % dynamics and interpopulation movement for a single year
                 grid.FullYear(yearDays);
             end
             
-            % find the combined percent survival of both subpopulations given
+            % find the combined percent survival of both populations given
             % the current intervention intensity, control strategy, and dispersal value
             survivalPercentages(iti, j, i) = 100 * ((grid(1,1).value.FinalPopulation + grid(1,2).value.FinalPopulation) / (grid(1,1).value.InitialPopulation + grid(1,2).value.InitialPopulation));
             

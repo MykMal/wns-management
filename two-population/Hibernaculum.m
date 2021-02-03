@@ -1,12 +1,12 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
-% Our multi-subpopulation code follows an object-oriented structure. This is the base class
-% file, which provides the "blueprint" for a single hibernaculum/subpopulation. It uses the
+% Our multi-population code follows an object-oriented structure. This is the base class
+% file, which provides the "blueprint" for a single hibernaculum/population. It uses the
 % ode45 ODE solver to simulate the swarming, hibernation, roosting, and birth phases, each
 % contained in separate functions below, for a single hibernaculum. This class is invoked by the
 % HibernaculumGrid class, which creates a grid of Hibernaculum objects.
 
-% Instructions: DO NOT RUN THIS FILE -- this file is used by all other multi-subpopulation
+% Instructions: DO NOT RUN THIS FILE -- this file is used by all other multi-population
 % program files.
 % This file does not require any manual changes, unless you want to change
 % the base parameters.
@@ -128,7 +128,7 @@ classdef Hibernaculum < handle
             % called before PostMigration, adds an additional row to the
             % end of fullPopulationMatrix with the reclassified state
             % variables; that row is used as the IC for Hibernation, and
-            % now I delete it since migration should happen instantaneously
+            % now I delete it since dispersal should happen instantaneously
             this.fullPopulationMatrix(end,:) = [];
             
             % preallocate the size of the roosting IC vector

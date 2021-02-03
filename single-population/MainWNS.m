@@ -1,4 +1,4 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
 % This is the base function file for single-population WNS simulations.
 % This function uses the ode45 ODE solver to simulate the swarming,

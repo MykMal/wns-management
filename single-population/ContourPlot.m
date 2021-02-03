@@ -1,4 +1,4 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
 % Run this program file to make a heat map of population survival with varying phi, beta for the single-population case.
 % This program file also generates ContourLine.mat, which contains the 25% survival contour values.
@@ -72,7 +72,7 @@ contourLine(:,1) = [];
 % save contourLine to a matrix file to use in other programs
 save('ContourLine.mat','contourLine')
 
-% plot the three disease case points
+% plot the three transmission case points
 for i = [168 117 57]
 	plot(contourLine(1,i),contourLine(2,i),'h','MarkerSize',24,'MarkerEdgeColor','white','MarkerFaceColor','white')
 end

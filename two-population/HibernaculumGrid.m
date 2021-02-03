@@ -1,13 +1,13 @@
-% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management Efficacy in a Metapopulation Model of White-nose Syndrome"
+% MATLAB code for J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, JC Blackwood. "Management efficacy in a metapopulation model of white-nose syndrome"
 
-% Our multi-subpopulation code follows an object-oriented structure. This is the
-% class file for a grid of hibernacula/subpopulations, which provides a "blueprint"
-% for creating a grid of Hibernaculum objects and accounts for migration between them.
+% Our multi-population code follows an object-oriented structure. This is the
+% class file for a grid of hibernacula/populations, which provides a "blueprint"
+% for creating a grid of Hibernaculum objects and accounts for dispersal between them.
 
-% Instructions: DO NOT RUN THIS FILE -- this file is used by all other multi-subpopulation
+% Instructions: DO NOT RUN THIS FILE -- this file is used by all other multi-population
 % program files.
 % This file does not require any manual changes, unless you want to change
-% the way that migration is handled.
+% the way that dispersal is handled.
 
 % Dependencies: Hibernaculum.m must be in the same directory
 
@@ -26,7 +26,7 @@ classdef HibernaculumGrid < handle
     % every HibernaculumGrid object contains these two structures
     properties
         value % a Hibernaculum object
-        migrationMatrix % a matrix that stores proportions for migration
+        migrationMatrix % a matrix that stores proportions for dispersal
     end
     
     % the methods of HibernaculumGrid: these are functions that act on the
@@ -50,11 +50,11 @@ classdef HibernaculumGrid < handle
             end
         end
         
-        % this method sets up the migration matrix, which for convenience
+        % this method sets up the dispersal matrix, which for convenience
         % I place within the (1,1) HibernaculumGrid object;
         % migrationMatrix is a huge m*n x m*n matrix because we need to
-        % account for migration from each subpopulation to every
-        % other subpopulation; every migration event (where immigration
+        % account for dispersal from each population to every
+        % other population; every dispersal event (where immigration
         % and emigration are two separate events) is represented
         % by a cell in migrationMatrix
         function ResetMigration(this,dispersal)
@@ -89,7 +89,7 @@ classdef HibernaculumGrid < handle
             end
         end
         
-        % this method applies migrationMatrix to the current population
+        % this method applies migrationMatrix to the current metapopulation
         function Migration(this)
             
             % we can't access m,n from above, so we calclate them from the
@@ -132,7 +132,7 @@ classdef HibernaculumGrid < handle
             end
         end
         
-        % this method simulates a full year of population dynamics
+        % this method simulates a full year of metapopulation dynamics
         function FullYear(this,yearDays)
             
             % we can't access m,n from above, so we calclate them from the
@@ -149,7 +149,7 @@ classdef HibernaculumGrid < handle
             end
             
             % call the HibernaculumGrid Migration method; note that this
-            % method is only called once because it takes care of migration
+            % method is only called once because it takes care of dispersal
             % for the whole grid
             this.Migration
             
