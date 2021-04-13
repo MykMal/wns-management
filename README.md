@@ -1,6 +1,6 @@
 # wns-management
 
-This repository contains source code for simulating the mathematical model described in the paper "Management efficacy in a metapopulation model of white-nose syndrome" by J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, and JC Blackwood. The manuscript is currently in revision, and a link to it will be added here upon publication.
+This repository contains source code for simulating the mathematical model described in the paper "Management efficacy in a metapopulation model of white-nose syndrome" by J Duan, MM Malakhov, JJ Pellett, IS Phadke, J Barber, and JC Blackwood. Our paper was published in the journal *Natural Resource Modeling* and is accessible at [https://doi.org/10.1111/nrm.12304](https://doi.org/10.1111/nrm.12304).
 
 Run the following scripts to recreate the plots included in the paper:
 
